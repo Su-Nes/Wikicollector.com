@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="container text-center">
+        <form action="/main" method="post">
+            <button type="submit">Atgriezties</button>
+        </form>
+    </div>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-6">
+                <h3>Piezīmes:</h3>
+                {% set route = noteRoute %}
+                <form action={{ route }} method="post">
+                    <div class="mb-3">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="note" rows="6">{{ user_note }}</textarea>
+                    </div>
+                    <button type="submit">Pierakstīt</button>
+                </form>
+            </div>
+            <div class="col-6">
+                <h3>{{ title }} saites</h3>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Saites teksts</th>
+                            <th scope="col">Saite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hyper, link in links.items() %}
+                            <tr>
+                                <td>{{ link }}</th>
+                                <td><a href="{{ hyper }}">{{ hyper }}</a></td>
+                            </tr>
+                        {%  endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

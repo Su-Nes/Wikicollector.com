@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <p>Lietotājs: {{ user, name, surname }}</p>
+
+    <form action="/main" method="post">
+        <button type="submit">Atgriezties</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <p style="text-align: center;">{{ error }}</p>
+
+    {% if returnPage == "index" %}
+
+        <form action="/" method="post" style="text-align: center;">
+            <button type="submit">Atgriezties uz reģistrēšanos</button>
+        </form><br>
+
+    {% endif %}
+    {% if returnPage == "login" %}
+
+        <form action="/gotologin" method="post" style="text-align: center;">
+            <button type="submit">Atgriezties uz login</button>
+        </form>
+
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="container text-center">
+        <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <form action="/register" method="post">
+                <input autocomplete="off" autofocus="post" name="email" placeholder="E-pasts" type="text"><br>
+                <input autocomplete="off" autofocus="post" name="password" placeholder="Parole" type="password"><br>
+                <input autocomplete="off" autofocus="post" name="name" placeholder="Vārds" type="text"><br>
+                <input autocomplete="off" autofocus="post" name="surname" placeholder="Uzvārds" type="text"><br>
+                <button type="submit">Reģistrēties</button>
+            </form><br>
+            <form action="/gotologin" method="post">
+                <button type="submit">Man jau ir konts!</button>
+            </form>
+        </div>
+        <div class="col">
+            {% if dev %}
+                <form action="/devRoute" method="post">
+                    <button type="submit">Developer route</button>
+                </form>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
