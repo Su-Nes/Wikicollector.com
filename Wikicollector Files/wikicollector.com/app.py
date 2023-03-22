@@ -118,7 +118,6 @@ def main():
 @app.route("/addArticle", methods=["GET", "POST"])
 def addArticle():
     try:
-        print(request.form["addArticle"], "\n")
         get = requests.get(request.form["addArticle"])
 
         if get.status_code == 200 and "wiki" in request.form["addArticle"]:
@@ -127,9 +126,9 @@ def addArticle():
             for title in soup.find_all('title'):
                 article_head = title.get_text()
 
-            article_head = article_head.replace(" - Wikipedia", "")
+            article_titles = request.form["addArticle"].split("/")
 
-            db.execute("INSERT INTO articles (url, reg_time, title, title_display) VALUES(?, ?, ?, ?)", request.form["addArticle"], datetime.now(), article_head.replace(" ", ""), article_head) #insert new article values
+            db.execute("INSERT INTO articles (url, reg_time, title, title_display) VALUES(?, ?, ?, ?)", request.form["addArticle"], datetime.now(), article_titles[len(article_titles) - 1], article_head) #insert new article values
             article_db = db.execute("SELECT * FROM articles WHERE url= ? AND reg_time= ?", request.form["addArticle"], datetime.now())[0]
             db.execute("INSERT INTO save (user_id, article_id) VALUES(?, ?)", session["user_id"], article_db["id"])
 
@@ -163,9 +162,8 @@ def inspectArticle(article_id):
             for link in paragraph.find_all('a'):
                 if "cite_note" not in link.get('href'):
                     if "https" not in link.get('href'):
-                        path = str(article_db["url"]).replace(str(article_db["url"]).split("/")[3], "") + link.get('href')
+                        path = str(article_db["url"]).replace(str(article_db["title"]), "") + str(link.get('href')).split("/")[len(link.get('href').split("/")) - 1]
                         links[path] = link.text
-                        print(str(article_db["url"]).split("/"))
                     else:
                         links[link.get('href')] = link.text
 
